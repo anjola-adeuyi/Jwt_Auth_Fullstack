@@ -1,8 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+interface IUserInfo {
+  _id: string;
+  name: string;
+  email: string;
+}
+
+interface AuthState {
+  userInfo: IUserInfo | null;
+}
+
 const userInfoLocalStorage = localStorage.getItem('userInfo');
 const userInfo = userInfoLocalStorage ? JSON.parse(userInfoLocalStorage) : null;
-const initialState = {
+const initialState: AuthState = {
   userInfo,
 };
 

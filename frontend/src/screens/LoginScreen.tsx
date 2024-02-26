@@ -18,7 +18,7 @@ const LoginScreen = () => {
 
   const [login, { isLoading }] = useLoginMutation();
 
-  const { userInfo } = useSelector<RootState>((state) => state.auth);
+  const { userInfo } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     if (userInfo) {
@@ -33,7 +33,11 @@ const LoginScreen = () => {
       dispatch(setCredentials({ ...res }));
       navigate('/');
     } catch (err) {
-      toast.error(err?.data?.message || err.error);
+      if ((err && typeof err === 'object' && 'data' in err) || (err && typeof err === 'object' && 'error' in err)) {
+        const errMsg = (err as { data: { message: string } }).data.message;
+        const errErr = (err as { error: string }).error;
+        toast.error(errMsg || errErr);
+      }
     }
   };
 
