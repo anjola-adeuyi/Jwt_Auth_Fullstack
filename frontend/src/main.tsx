@@ -9,6 +9,8 @@ import HomeScreen from './screens/HomeScreen.tsx';
 import LoginScreen from './screens/LoginScreen.tsx';
 import RegisterScreen from './screens/RegisterScreen.tsx';
 import { Provider } from 'react-redux';
+import ProfileScreen from './screens/ProfileScreen.tsx';
+import PrivateRoute from './components/PrivateRoute.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,7 +31,16 @@ const router = createBrowserRouter(
         path="register"
         element={<RegisterScreen />}
       />
-      {/* <Route path="profile" element={<ProfileScreen />} /> */}
+      {/* Private Route */}
+      <Route
+        path=""
+        element={<PrivateRoute />}
+      >
+        <Route
+          path="profile"
+          element={<ProfileScreen />}
+        />
+      </Route>
     </Route>
   )
 );
